@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Connect4AI</title>
+    <style>
+        * {
+          box-sizing:border-box;
+        }
+
+        .game {
+          overflow: hidden;
+          padding: 10px;
+          display:inline-block;
+          background: blue;
+          box-shadow: 5px 5px #888888;
+        }
+
+        .game td, th {
+            padding: 5px;
+            width: 100px;
+            height: 100px;
+            position: relative;
+            justify-content: center;
+        }
+
+        .game td .chipPlain {
+            cursor: pointer;
+        }
+
+        .game td .chipP1 {
+            cursor: not-allowed;
+        }
+
+        .game td .chipP2 {
+            cursor: not-allowed;
+        }
+
+        .game th {
+          background-color:#fff;
+        }
+        .game td:hover::after {
+            background-color: red;
+
+         }
+        .game td .chipPlain:hover {
+            background-color: #ff8080;
+        }
+
+        .chipPlain {
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+            background: white;
+            box-shadow: -5px -5px #888888;
+
+        }
+
+        .chipP1 {
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+            background: red;
+        }
+
+        .chipP2 {
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+            background: yellow;
+        }
+
+        body {
+          margin:8em;
+        }
+
+        .replay {
+            width: 100px;
+            height: 50px;
+            color: white;
+            background: blue;
+        }
+
+        .blocker {
+            background: #ccc;
+            height: 200px;
+            width: 200px;
+            position: relative;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .pop {
+            background: green;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Try to beat the AI</h1>
+        <p>It might be easy at the beginning, but the more people play against it the harder it gets over the time so give it a try</p>
+    </div>
+    <h2 id="turn-indicator">YOUR TURN</h2>
+    <div id="game-area">
+        <table class="game" id="game-env">
+            <tr>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+            </tr>
+            <tr>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+            </tr>
+            <tr>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+            </tr>
+            <tr>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+            </tr>
+            <tr>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+            </tr>
+            <tr>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+            </tr>
+            <tr>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+                <td><div class="chipPlain"></div></td>
+            </tr>
+        </table>
+    </div>
+    <script src="js/connect4game.js"></script>
+</body>
+</html>
