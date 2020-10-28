@@ -10,6 +10,7 @@
 
         .game {
           overflow: hidden;
+          padding: 10px;
           display:inline-block;
           background: blue;
           box-shadow: 5px 5px #888888;
@@ -76,6 +77,7 @@
         .replay {
             width: 100px;
             height: 50px;
+            color: white;
             background: blue;
         }
 
@@ -86,6 +88,10 @@
             position: relative;
             justify-content: center;
             text-align: center;
+        }
+
+        .pop {
+            background: green;
         }
     </style>
 </head>
@@ -242,7 +248,7 @@
                     if (runP1 === 4) {
                         turnIndicator.innerHTML = 'WIN';
                         blockTable();
-                        break;
+                        return true;
                     }
                    }
                    else if ((cell.className === 'chipP2') && (runP2 >= 0)) {
@@ -251,19 +257,91 @@
                     if (runP2 === 4) {
                         turnIndicator.innerHTML = 'LOOSE';
                         blockTable(winner=1);
-                        break;
+                        return true;
                     }
                    }
                 }
             }
+            return false;
 
         }
 
         // check if four of one color are in a row
-        function horizontalCheck(){}
+        function horizontalCheck(){
+
+
+            const turnIndicator = document.getElementById("turn-indicator");
+
+            // check each column for class count
+            for (r=0; r<rowsArray.length; r++){
+
+                let runP1 = 0;
+                let runP2 = 0;
+                for (c=0; c<6; c++) {
+                   const cell = rowsArray[r].querySelectorAll('td div')[c];
+                   if ((cell.className === 'chipP1') && (runP1 >= 0)) {
+                    runP2 = 0;
+                    runP1 = runP1 + 1;
+                    if (runP1 === 4) {
+                        turnIndicator.innerHTML = 'WIN';
+                        blockTable();
+                        return true;
+                    }
+                   }
+                   else if ((cell.className === 'chipP2') && (runP2 >= 0)) {
+                    runP1 = 0;
+                    runP2 = runP2 + 1;
+                    if (runP2 === 4) {
+                        turnIndicator.innerHTML = 'LOOSE';
+                        blockTable(winner=1);
+                        return true;
+                    }
+                   }
+                }
+            }
+            return false;
+
+        }
 
         // check if four of one color are in a diagonal
-        function diagonalCheck(){}
+        function diagonalCheck(){
+
+            // r, c;
+            // (3, 0; 2, 1; 1, 2; 0, 3)
+            // (4, 0; 3, 1; 2, 2; 1, 3; 0, 4)
+            const operations = rowsArray.length + 2;
+            const maxCount = 7;
+            let offset = 0;
+            for (r=0; r<operations; r++){
+
+                let rS = r;
+                const difference = maxCount - r;
+                console.log('difference ', difference);
+                if (difference < 0) {
+                    offset = difference * -1;
+                    rS = 7;
+                 }
+
+                for(c=0; c<rS; c++) {
+                    rS = rS - c;
+
+                    if (rS < 0) {
+                        rS = 0;
+                    }
+
+                    let value = c + offset;
+                    const el = rowsArray[rS].querySelectorAll('td div')[value];
+                    el.classList.add('pop');
+                    console.log(rS, c, offset);
+
+                }
+                console.log("done for ", r);
+
+            }
+        return false;
+        }
+
+
 
         // blockTable
         function blockTable(winner=0) {
@@ -299,7 +377,12 @@
 
         // run all checks to estimate the current state
         function winCheck() {
-            verticalCheck();
+            if (!verticalCheck()) {
+                if (!horizontalCheck()) {
+                    if (!diagonalCheck()) {
+                    }
+                }
+            }
         }
 
     </script>
